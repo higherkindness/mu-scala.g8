@@ -1,7 +1,9 @@
 package $organization$
 
 import cats.effect._
+$if(use_protobuf.truthy)$
 import $organization$.hello._
+$endif$
 import higherkindness.mu.rpc.server._
 import higherkindness.mu.rpc.testing.servers.withServerChannel
 import io.grpc.ManagedChannel

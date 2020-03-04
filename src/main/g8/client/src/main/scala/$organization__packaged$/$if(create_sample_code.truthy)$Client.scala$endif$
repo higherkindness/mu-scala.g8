@@ -2,7 +2,9 @@ package $organization$
 
 import cats.effect._
 import cats.effect.Console.io._
+$if(use_protobuf.truthy)$
 import $organization$.hello._
+$endif$
 import higherkindness.mu.rpc._
 
 object Client extends IOApp {

@@ -18,9 +18,14 @@ val protocol = project
     // Needed to expand the @service macro annotation
     addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.patch),
 
-    // TODO make this configurable
+    $if(use_protobuf.truthy)$
     // Generate sources from .proto files
     muSrcGenIdlType := IdlType.Proto,
+    $endif$
+    $if(use_avro.truthy)$
+    // Generate sources from Avro (.avdl, .avpr or .avsc) files
+    muSrcGenIdlType := IdlType.Avro,
+    $endif$
 
     // Make it easy for 3rd-party clients to communicate with us via gRPC
     muSrcGenIdiomaticEndpoints := true
