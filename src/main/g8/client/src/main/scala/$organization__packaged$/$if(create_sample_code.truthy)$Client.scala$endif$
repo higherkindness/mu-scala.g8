@@ -19,7 +19,7 @@ object Client extends IOApp {
       name       <- readLn
       response   <- serviceClient.use(c => c.SayHello(HelloRequest(name)))
       serverMood = if (response.happy) "happy" else "unhappy"
-      _          <- putStrLn(s"The \$serverMood server says '\$response.greeting'")
+      _          <- putStrLn(s"The \$serverMood server says '\${response.greeting}'")
     } yield ExitCode.Success
 
 }
