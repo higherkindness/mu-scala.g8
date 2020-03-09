@@ -2,7 +2,7 @@ import higherkindness.mu.rpc.srcgen.Model._
 
 inThisBuild(Seq(
   organization := "$organization$",
-  scalaVersion := "2.12.10",
+  scalaVersion := "$scala_version$",
   scalacOptions += "-language:higherKinds"
 ))
 
