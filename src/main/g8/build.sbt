@@ -6,6 +6,32 @@ inThisBuild(Seq(
   scalacOptions += "-language:higherKinds"
 ))
 
+def isOldScala(sv: String): Boolean =
+  CrossVersion.partialVersion(sv) match {
+    case Some((2, minor)) if minor < 13 => true
+    case _                              => false
+  }
+
+val macroSettings: Seq[Setting[_]] = {
+
+  def paradiseDependency(sv: String): Seq[ModuleID] =
+    if (isOldScala(sv))
+      Seq(compilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.patch))
+    else
+      Seq.empty
+
+  def macroAnnotationScalacOption(sv: String): Seq[String] =
+    if (isOldScala(sv))
+      Seq.empty
+    else
+      Seq("-Ymacro-annotations")
+
+  Seq(
+    libraryDependencies ++= paradiseDependency(scalaVersion.value),
+    scalacOptions ++= macroAnnotationScalacOption(scalaVersion.value)
+  )
+}
+
 val protocol = project
   .settings(
     name := "$name;format="norm"$-protocol",
@@ -16,7 +42,7 @@ val protocol = project
     ),
 
     // Needed to expand the @service macro annotation
-    addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.patch),
+    macroSettings,
 
     $if(use_protobuf.truthy)$
     // Generate sources from .proto files
