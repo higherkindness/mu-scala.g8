@@ -8,5 +8,12 @@ lazy val root = (project in file("."))
     test in Test := {
       val _ = (g8Test in Test).toTask("").value
     },
-    scriptedLaunchOpts ++= List("-Xms1024m", "-Xmx1024m", "-XX:ReservedCodeCacheSize=128m", "-Xss2m", "-Dfile.encoding=UTF-8")
+    scriptedLaunchOpts ++= List("-Xms1024m", "-Xmx1024m", "-XX:ReservedCodeCacheSize=128m", "-Xss2m", "-Dfile.encoding=UTF-8"),
   )
+
+addCommandAlias("ci-test", "g8Test")
+
+// There are no docs to generate for this project.
+// Just define a dummy command to keep the CI happy.
+addCommandAlias("ci-docs", "show scalaVersion")
+
