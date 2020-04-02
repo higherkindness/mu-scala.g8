@@ -62,7 +62,7 @@ val server = project
     name := "$name;format="norm"$-rpc-server",
 
     libraryDependencies ++= Seq(
-      // Needed to build a gRPC client
+      // Needed to build a gRPC server
       "io.higherkindness" %% "mu-rpc-server" % "$mu_version$",
 
       // Silence all logs in the demo
