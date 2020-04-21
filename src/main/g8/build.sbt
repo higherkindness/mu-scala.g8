@@ -72,7 +72,10 @@ val server = project
 
       // Needed to build an in-memory server in the test
       "io.higherkindness" %% "mu-rpc-testing" % "$mu_version$" % Test
-    )
+    ),
+
+    // Start the server in a separate process so it shuts down cleanly when you hit Ctrl-C
+    fork := true
   )
   .dependsOn(protocol)
 
