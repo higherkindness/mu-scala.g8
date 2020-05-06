@@ -38,7 +38,7 @@ val protocol = project
 
     libraryDependencies ++= Seq(
       // Needed for the generated code to compile
-      "io.higherkindness" %% "mu-rpc-channel" % "$mu_version$"
+      "io.higherkindness" %% "mu-rpc-service" % "$mu_version$"
     ),
 
     // Needed to expand the @service macro annotation
@@ -85,7 +85,7 @@ val client = project
 
     libraryDependencies ++= Seq(
       // Needed to build a gRPC client (although you could use mu-rpc-okhttp instead)
-      "io.higherkindness" %% "mu-rpc-netty" % "$mu_version$",
+      "io.higherkindness" %% "mu-rpc-client-netty" % "$mu_version$",
 
       // For console I/O in the demo client
       "dev.profunktor" %% "console4cats" % "0.8.1",
