@@ -19,7 +19,7 @@ lazy val macroSettings: Seq[Setting[_]] = Seq(
     scalaOrganization.value % "scala-compiler" % scalaVersion.value % Provided
   ),
   libraryDependencies ++= on(2, 12)(
-    compilerPlugin("org.scalamacros" %% "paradise" % V.paradise cross CrossVersion.full)
+    compilerPlugin("org.scalamacros" %% "paradise" % "2.1.1" cross CrossVersion.full)
   ).value,
   scalacOptions ++= on(2, 13)("-Ymacro-annotations").value
 )
