@@ -19,5 +19,4 @@ addCommandAlias("ci-docs", "show scalaVersion")
 
 // There is no release process for this project,
 // so this is also a dummy command
-addCommandAlias("ci-release", "show scalaVersion")
-
+addCommandAlias("ci-publish", "show scalaVersion")
