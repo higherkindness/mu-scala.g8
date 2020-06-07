@@ -6,31 +6,23 @@ inThisBuild(Seq(
   scalacOptions += "-language:higherKinds"
 ))
 
-def isOldScala(sv: String): Boolean =
-  CrossVersion.partialVersion(sv) match {
-    case Some((2, minor)) if minor < 13 => true
-    case _                              => false
+def on[A](major: Int, minor: Int)(a: A): Def.Initialize[Seq[A]] =
+  Def.setting {
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some(v) if v == (major, minor) => Seq(a)
+      case _                              => Nil
+    }
   }
 
-val macroSettings: Seq[Setting[_]] = {
-
-  def paradiseDependency(sv: String): Seq[ModuleID] =
-    if (isOldScala(sv))
-      Seq(compilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.patch))
-    else
-      Seq.empty
-
-  def macroAnnotationScalacOption(sv: String): Seq[String] =
-    if (isOldScala(sv))
-      Seq.empty
-    else
-      Seq("-Ymacro-annotations")
-
-  Seq(
-    libraryDependencies ++= paradiseDependency(scalaVersion.value),
-    scalacOptions ++= macroAnnotationScalacOption(scalaVersion.value)
-  )
-}
+lazy val macroSettings: Seq[Setting[_]] = Seq(
+  libraryDependencies ++= Seq(
+    scalaOrganization.value % "scala-compiler" % scalaVersion.value % Provided
+  ),
+  libraryDependencies ++= on(2, 12)(
+    compilerPlugin("org.scalamacros" %% "paradise" % V.paradise cross CrossVersion.full)
+  ).value,
+  scalacOptions ++= on(2, 13)("-Ymacro-annotations").value
+)
 
 val protocol = project
   .settings(
