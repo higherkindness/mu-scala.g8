@@ -68,7 +68,7 @@ val server = project
       // Silence all logs in the demo
       "org.slf4j" % "slf4j-nop" % "1.7.30",
 
-      "org.scalatest" %% "scalatest" % "3.1.1" % Test,
+      "org.scalatest" %% "scalatest" % "3.1.2" % Test,
 
       // Needed to build an in-memory server in the test
       "io.higherkindness" %% "mu-rpc-testing" % "$mu_version$" % Test
