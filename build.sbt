@@ -12,12 +12,17 @@ lazy val root = (project in file("."))
   )
 
 addCommandAlias("ci-test", "g8Test")
-
-// There are no docs to generate for this project.
-// Just define a dummy command to keep the CI happy.
-addCommandAlias("ci-docs", "show scalaVersion")
+addCommandAlias("ci-docs", "github; documentation/mdoc")
 
 // There is no release process for this project,
 // so this is also a dummy command
-addCommandAlias("ci-release", "show scalaVersion")
+addCommandAlias("ci-publish", "show scalaVersion")
 
+ThisBuild / organization := "io.higherkindness"
+ThisBuild / githubOrganization := "47degrees"
+
+// Auto-update project documentation
+lazy val documentation = project
+  .settings(mdocOut := file("."))
+  .settings(publish / skip := true)
+  .enablePlugins(MdocPlugin)
