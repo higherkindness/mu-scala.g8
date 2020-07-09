@@ -28,6 +28,10 @@ val protocol = project
   .settings(
     name := "$name;format="norm"$-protocol",
 
+    // The sbt-mu-srcgen plugin isn't on by default after version v0.23.x
+    // so we need to manually enable the plugin to generate mu-scala code
+    enablePlugins(SrcGenPlugin),
+
     libraryDependencies ++= Seq(
       // Needed for the generated code to compile
       "io.higherkindness" %% "mu-rpc-service" % "$mu_version$"
