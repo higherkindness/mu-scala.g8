@@ -12,10 +12,7 @@ import scala.concurrent.ExecutionContext.Implicits
 
 class ServerSpec extends AnyFlatSpec {
 
-  val EC: scala.concurrent.ExecutionContext = Implicits.global
-
-  implicit val timer: Timer[IO]     = IO.timer(EC)
-  implicit val cs: ContextShift[IO] = IO.contextShift(EC)
+  import cats.effect.unsafe.implicits.global
 
   implicit val greeter: Greeter[IO] = new HappyGreeter[IO]
 
