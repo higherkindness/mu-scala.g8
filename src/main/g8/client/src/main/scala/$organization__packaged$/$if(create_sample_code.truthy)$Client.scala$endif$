@@ -1,11 +1,12 @@
 package $organization$
 
 import cats.effect._
-import cats.effect.Console.io._
 $if(use_protobuf.truthy)$
 import $organization$.hello._
 $endif$
 import higherkindness.mu.rpc._
+
+import scala.Console.{in, out}
 
 object Client extends IOApp {
 
@@ -15,11 +16,11 @@ object Client extends IOApp {
 
   def run(args: List[String]): IO[ExitCode] =
     for {
-      _          <- putStr("Please enter your name: ")
-      name       <- readLn
+      _          <- IO(out.println("Please enter your name: "))
+      name       <- IO(in.readLine())
       response   <- serviceClient.use(c => c.SayHello(HelloRequest(name)))
       serverMood = if (response.happy) "happy" else "unhappy"
-      _          <- putStrLn(s"The \$serverMood server says '\${response.greeting}'")
+      _          <- IO(out.println(s"The \$serverMood server says '\${response.greeting}'"))
     } yield ExitCode.Success
 
 }

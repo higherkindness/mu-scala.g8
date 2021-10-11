@@ -82,9 +82,6 @@ val client = project
       // Needed to build a gRPC client (although you could use mu-rpc-okhttp instead)
       "io.higherkindness" %% "mu-rpc-client-netty" % "$mu_version$",
 
-      // For console I/O in the demo client
-      "dev.profunktor" %% "console4cats" % "0.8.1",
-
       // Silence all logs in the demo
       "org.slf4j" % "slf4j-nop" % "1.7.30"
     )
