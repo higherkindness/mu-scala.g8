@@ -7,4 +7,4 @@ addSbtPlugin("com.alejandrohdezma" % "sbt-github" % "0.12.0")
 addSbtPlugin("com.alejandrohdezma" % "sbt-github-mdoc" % "0.12.0")
 
 dependencyOverrides +=
-  "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"   
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "2.4.0"   
